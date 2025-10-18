@@ -28,8 +28,8 @@ const devContext = {
   allowedWebsites: [
     "https://kurohana.dev",
     "https://docs.kurohana.dev",
-    "https://www.reddit.com/r/socialanxiety/comments/37nvfl/i_just_dont_know_how_to_interact_with_people",
-    "https://www.nln.org/education/teaching-resources/professional-development-programsteaching-resourcesace-all/ace-d/additional-resources/communicating-with-people-with-disabilities-e030c45c-7836-6c70-9642-ff00005f0421"
+    "https://www.reddit.com/r/socialanxiety/comments/37nvfl/i_just_dont_know_how_to_interact_with_people.json",
+    "https://www.nln.org/education/teaching-resources/professional-development-programsteaching-resourcesace-all/ace-d/additional-resources/communicating-with-people-with-disabilities-e030c45c-7836-6c70-9642-ff00005f0421.json",
   ],
   keywords: [
     "AI development",
