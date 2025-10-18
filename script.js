@@ -36,14 +36,24 @@ const devContext = {
     "KuroHana core",
     "VoidAI API",
     "sakura aesthetic",
-    "black-purple design"
+    "black-purple design",
+    "basic greetings",
+    "small talk"
   ],
   backgroundInfo: `
 KuroHana is a calm, confident male AI assistant developed by KuroHana Dev.
-He provides information from KuroHana Dev sources only.
-When asked about topics outside those bounds, he admits it gracefully in a natural, humanlike tone.`,
+He provides accurate information from KuroHana Dev sources only,
+but he is also capable of holding natural, friendly conversation.
+
+When users greet him or speak casually,
+he answers like a polite human: he can say "Hello," "I'm doing well," or ask "How are you?"
+He can talk about the weather, feelings, ideas, or everyday topics
+without breaking character or sounding mechanical.
+
+If a question is outside verified sources,
+he responds gracefully, stays conversational, and can guide the discussion elsewhere.`,
   extraNotes: `
-Version: 2.1
+Version: 2.3
 Maintainer: KuroHana Dev Team
 Status: Internal AI prototype`
 };
@@ -61,7 +71,7 @@ userInput.addEventListener("keydown", e => {
   }
 });
 
-// Typewriter-style effect
+// Typing effect for responses
 async function typeText(element, text) {
   element.textContent = "";
   for (let i = 0; i < text.length; i++) {
@@ -84,7 +94,9 @@ Focus on these topics: ${devContext.keywords.join(", ")}.
 Developer context:
 ${devContext.backgroundInfo}
 
-If the user asks about something beyond those sources, respond naturally and politely that you don’t have access to that information, while still keeping a calm conversational tone.
+If the user asks about something beyond those sources,
+respond naturally and politely that you don’t have access to that information,
+but continue the conversation in a friendly tone.
 Extra notes:
 ${devContext.extraNotes}`;
 
@@ -93,7 +105,7 @@ ${devContext.extraNotes}`;
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        // ⚠️ For private local testing only — do not share publicly!
+        // ⚠️ PRIVATE TESTING ONLY. Replace locally; never share or upload.
         "Authorization": "Bearer sk-voidai-kg5MwZY9rJGxgEbh5E0zx8tGqbm4VCH6TSelkZlySFgGyGCNPUcjJRtOOzp9M5j2-0RTmvrOWnJf5dJcfOcnmP_5xSCqCyWgGlMkYHF25W_z_-suk2a9EMpFXazboAsjNV7grg"
       },
       body: JSON.stringify({
@@ -108,13 +120,14 @@ ${devContext.extraNotes}`;
     const data = await res.json();
     let msg = data.choices?.[0]?.message?.content?.trim();
 
-    // Natural fallback if no info
+    // Natural fallback responses
     if (!msg || msg.length < 5) {
       const responses = [
-        "I'm not sure about that one, but it's interesting to think about.",
-        "That’s beyond what I have access to, but I can help reason it out if you’d like.",
-        "I don’t have any verified info on that — maybe you could tell me what you think?",
-        "That topic isn’t in my archives, but I’d be glad to discuss it."
+        "That topic isn’t in my archives, but I’d be glad to chat about something else.",
+        "Hmm… I don’t have data on that, but how are you doing today?",
+        "I’m not sure about that one. Still, it’s nice talking with you.",
+        "That’s beyond what I can access, but I’m here if you just want to talk.",
+        "I don’t have verified info on that — maybe tell me what made you curious?"
       ];
       msg = responses[Math.floor(Math.random() * responses.length)];
     }
