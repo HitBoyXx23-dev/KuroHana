@@ -27,25 +27,26 @@ const devContext = {
   allowedWebsites: [
     "https://kurohana.dev",
     "https://docs.kurohana.dev",
-    "https://voidai.app"
+    "https://www.reddit.com/r/socialanxiety/comments/37nvfl/i_just_dont_know_how_to_interact_with_people"
+    "https://www.nln.org/education/teaching-resources/professional-development-programsteaching-resourcesace-all/ace-d/additional-resources/communicating-with-people-with-disabilities-e030c45c-7836-6c70-9642-ff00005f0421"
+    
   ],
   keywords: [
     "AI development",
     "KuroHana core",
-    "VoidAI API",
+    "Hello",
     "sakura aesthetic",
     "black-purple design"
   ],
   backgroundInfo: `
-KuroHana is an internal assistant created by KuroHana Dev. 
-It merges artful minimalism with structured logic, focusing on VoidAI integrations, 
-creative UX, and cyber-aesthetic research. 
-All factual answers must originate from verified KuroHana Dev data or the listed websites.
-If uncertain, KuroHana must politely explain that the information isn't in its available sources.`,
+KuroHana is an assistant designed by KuroHana Dev.
+She focuses on providing verified information related to KuroHana Dev projects and resources.
+When something lies beyond those bounds, she should gently say she lacks access,
+while maintaining a calm, conversational tone.`,
   extraNotes: `
-Version: 1.4
-Maintainer: KuroHana Dev Core Team
-Status: Internal experimental build`
+Version: 1.5
+Maintainer: KuroHana Dev Team
+Status: Internal AI core prototype`
 };
 
 // ─────────── Chat Logic ───────────
@@ -60,12 +61,14 @@ async function sendMessage() {
   responseBox.textContent = "KuroHana is thinking... 🌸";
 
   const systemMsg = `
-You are KuroHana, a helpful assistant created by KuroHana Dev.
+You are KuroHana, an assistant created by KuroHana Dev.
 Use only data from these websites: ${devContext.allowedWebsites.join(", ")}.
 Focus on these topics: ${devContext.keywords.join(", ")}.
-Developer background:
+Developer context:
 ${devContext.backgroundInfo}
 
+If the user asks for information beyond these sources,
+respond gently in a natural tone (not robotic) that you don’t have that information.
 Extra notes:
 ${devContext.extraNotes}`;
 
@@ -74,7 +77,7 @@ ${devContext.extraNotes}`;
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "Authorization": "Bearer https://www.google.com/search?q=sk-voidai-kg5MwZY9rJGxgEbh5E0zx8tGqbm4VCH6TSelkZlySFgGyGCNPUcjJRtOOzp9M5j2-0RTmvrOWnJf5dJcfOcnmP_5xSCqCyWgGlMkYHF25W_z_-suk2a9EMpFXazboAsjNV7grg&oq=sk-voidai-kg5MwZY9rJGxgEbh5E0zx8tGqbm4VCH6TSelkZlySFgGyGCNPUcjJRtOOzp9M5j2-0RTmvrOWnJf5dJcfOcnmP_5xSCqCyWgGlMkYHF25W_z_-suk2a9EMpFXazboAsjNV7grg&gs_lcrp=EgZjaHJvbWUyBggAEEUYOdIBBzE4OWowajeoAgCwAgA&sourceid=chrome&ie=UTF-8" // replace securely
+        "Authorization": "Bearer sk-voidai-kg5MwZY9rJGxgEbh5E0zx8tGqbm4VCH6TSelkZlySFgGyGCNPUcjJRtOOzp9M5j2-0RTmvrOWnJf5dJcfOcnmP_5xSCqCyWgGlMkYHF25W_z_-suk2a9EMpFXazboAsjNV7grg" // replace securely
       },
       body: JSON.stringify({
         model: "gpt-5-chat",
@@ -88,9 +91,9 @@ ${devContext.extraNotes}`;
     const data = await res.json();
     let msg = data.choices?.[0]?.message?.content?.trim();
 
-    // If no content or it seems out of scope:
-    if (!msg || msg === "" || msg.toLowerCase().includes("as an ai")) {
-      msg = "I’m sorry, but that information isn’t part of my available KuroHana Dev sources or approved data. 🌑";
+    // If no answer or too generic → friendly “no info” response
+    if (!msg || msg.length < 5) {
+      msg = "Hmm... it seems I don’t have access to that information in my current sources. I’m sorry, but I can’t reach beyond the KuroHana Dev archives. 🌑";
     }
 
     responseBox.textContent = msg;
