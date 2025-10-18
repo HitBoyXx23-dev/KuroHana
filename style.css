@@ -1,0 +1,156 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500&family=Poppins:wght@300;500&display=swap');
+
+:root {
+  --black: #0b0b0d;
+  --purple: #5c1aff;
+  --sakura: #ffb7c5;
+  --shadow: #1a1a22;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background: radial-gradient(circle at center, var(--black) 0%, #050505 100%);
+  color: #f2e6f5;
+  font-family: 'Poppins', sans-serif;
+  overflow: hidden;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: background 1s ease;
+}
+
+h1 {
+  font-size: 4em;
+  color: var(--purple);
+  text-shadow: 0 0 30px var(--purple), 0 0 60px var(--sakura);
+  letter-spacing: 2px;
+  margin: 0;
+  animation: glow 4s ease-in-out infinite;
+}
+
+p {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.5em;
+  color: var(--sakura);
+  text-shadow: 0 0 10px var(--purple);
+  margin-top: 10px;
+  letter-spacing: 2px;
+}
+
+button {
+  background: var(--purple);
+  border: none;
+  color: white;
+  font-size: 1.1em;
+  padding: 10px 25px;
+  border-radius: 10px;
+  margin-top: 30px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 10px var(--purple);
+}
+
+button:hover {
+  background: var(--sakura);
+  color: var(--black);
+  box-shadow: 0 0 20px var(--sakura);
+}
+
+@keyframes glow {
+  0%, 100% {
+    text-shadow: 0 0 20px var(--purple), 0 0 40px var(--sakura);
+  }
+  50% {
+    text-shadow: 0 0 40px var(--sakura), 0 0 80px var(--purple);
+  }
+}
+
+.petal {
+  position: absolute;
+  background: radial-gradient(circle at 30% 30%, var(--sakura) 0%, var(--purple) 70%);
+  width: 10px;
+  height: 14px;
+  border-radius: 50%;
+  opacity: 0.8;
+  pointer-events: none;
+  animation: fall linear forwards;
+}
+
+@keyframes fall {
+  0% {
+    transform: translateY(-10vh) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(110vh) rotate(720deg);
+    opacity: 0;
+  }
+}
+
+.fade-in {
+  animation: fadeIn 2s ease forwards;
+  opacity: 0;
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
+}
+
+.chat {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  width: 90%;
+  max-width: 600px;
+  background: var(--shadow);
+  border: 1px solid var(--purple);
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 0 30px var(--purple);
+}
+
+textarea {
+  width: 100%;
+  height: 80px;
+  background: #2a2a34;
+  color: var(--sakura);
+  border: none;
+  border-radius: 8px;
+  padding: 10px;
+  resize: none;
+  outline: none;
+}
+
+#send {
+  background: var(--purple);
+  color: white;
+  border: none;
+  padding: 10px 25px;
+  margin-top: 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: 0.2s;
+}
+
+#send:hover {
+  background: var(--sakura);
+  color: var(--black);
+}
+
+#response {
+  margin-top: 15px;
+  background: #2a2a34;
+  color: var(--sakura);
+  padding: 15px;
+  border-radius: 8px;
+  width: 100%;
+  white-space: pre-wrap;
+  font-size: 0.95em;
+  min-height: 50px;
+}
